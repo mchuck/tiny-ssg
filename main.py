@@ -34,22 +34,21 @@ def write_html_safe(path, html):
     with open(path, 'w') as out_file:
         out_file.write(html)
 
-# TODO: post -> page
-def create_page(post_file: str, collection:str) -> WebsitePage:
-    with open(post_file, 'r') as post_f:
-        post_text = post_f.read()
+def create_page(page_file: str, collection:str) -> WebsitePage:
+    with open(page_file, 'r') as page_f:
+        page_text = page_f.read()
         md = markdown.Markdown(extensions = ['meta'], output_format='html5')
-        post_html = md.convert(post_text) 
-        post_meta = md.Meta
-        post_title = post_meta['title'][0]
-        return WebsitePage(post_title,
-                           post_html,
-                           post_meta['tags'],
-                           post_meta['createdat'][0],
+        page_html = md.convert(page_text) 
+        page_meta = md.Meta
+        page_title = page_meta['title'][0]
+        return WebsitePage(page_title,
+                           page_html,
+                           page_meta['tags'],
+                           page_meta['createdat'][0],
                            os.path.join('/', collection, 'pages',
-                                        '{}.html'.format(slugify(post_title))),
-                           slugify(post_title),
-                           post_meta)
+                                        '{}.html'.format(slugify(page_title))),
+                           slugify(page_title),
+                           page_meta)
         
 if __name__ == "__main__":
     theme = ARGS.theme
