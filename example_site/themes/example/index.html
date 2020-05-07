@@ -1,0 +1,34 @@
+<html>
+
+  <head>
+    <title>{{ website.meta.title }}</title>
+  </head>
+
+
+  <body>
+
+    <p>
+      <strong>Categories</strong><br/>
+      {% for tag in website.collections['posts'].tags %}
+      <a href="/posts/tags/{{tag.name | lower}}.html">{{tag.name}}</a>
+      
+      {% endfor %}
+      </p>
+
+    {% for page in website.collections['posts'].pages %}
+    <div>
+      <p>{{page.title}}</p>
+      {{ page.body | truncate(100, false, ' [...]') }}<br/>
+      <a href="{{page.url}}">Continue reading...</a>
+      <p>
+	{% for tag in page.tags%}
+	<small>{{tag}}</small>
+	{% endfor %}
+      </p>
+    </div>
+    <hr/>
+    {% endfor %}
+  </body>
+
+  
+</html>

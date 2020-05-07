@@ -1,0 +1,31 @@
+<html>
+
+  <head>
+    <title>{{tag.name}}</title>
+  </head>
+
+
+  <body>
+
+    <a href="/">Go back</a>
+    <p>
+      <strong>{{tag.name}}</strong>
+    </p>
+
+    {% for page in tag.pages %}
+    <div>
+      <p>{{page.title}}</p>
+      {{ page.body | truncate(100, false, ' [...]') }}<br/>
+      <a href="{{page.url}}">Continue reading...</a>
+      <p>
+	{% for tag in page.tags%}
+	<small>{{tag}}</small>
+	{% endfor %}
+      </p>
+    </div>
+    <hr/>
+    {% endfor %}
+  </body>
+
+  
+</html>

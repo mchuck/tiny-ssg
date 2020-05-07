@@ -1,0 +1,25 @@
+<html>
+
+  <head>
+    <title>{{ page.title }}</title>
+  </head>
+
+
+  <body>
+
+    <a href="/">Go back</a>
+    <div>
+      {{ page.body }}
+      <p>
+	{% for tag in page.tags%}
+	<small>{{tag}}</small>
+	{% endfor %}
+      </p>
+      <p>
+	Details: {{page.meta['detail'][0]}}
+	</p>
+    </div>
+  </body>
+
+  
+</html>
