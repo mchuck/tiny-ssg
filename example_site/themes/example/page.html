@@ -1,25 +1,22 @@
 <html>
 
-  <head>
-    <title>{{ page.title }}</title>
-  </head>
 
-
+  {% include 'head.html' %}
   <body>
-
+    
     {% include 'header.html' %}
-    <a href="/">Go back</a>
-    <div>
-      {{ page.body }}
-      <p>
-	{% for tag in page.tags%}
-	<small>{{tag}}</small>
-	{% endfor %}
-      </p>
-      <p>
-	Details: {{page.meta['detail'][0]}}
+    <main>
+      <a href="javascript:history.back()">Go Back</a>
+      <div>
+	<h1>{{ page.title}}</h1>
+	{{ page.body }}
+	<p>
+	  {% for tag in page.tags%}
+	  <small>{{tag}}</small>
+	  {% endfor %}
 	</p>
-    </div>
+      </div>
+    </main>
   </body>
 
   

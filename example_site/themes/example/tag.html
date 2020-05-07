@@ -1,31 +1,29 @@
 <html>
 
-  <head>
-    <title>{{tag.name}}</title>
-  </head>
-
+  {% include 'head.html' %}
 
   <body>
     {% include 'header.html' %}
-
-    <a href="/">Go back</a>
-    <p>
-      <strong>{{tag.name}}</strong>
-    </p>
-
-    {% for page in tag.pages %}
-    <div>
-      <p>{{page.title}}</p>
-      {{ page.body | truncate(100, false, ' [...]') }}<br/>
-      <a href="{{page.url}}">Continue reading...</a>
+    <main>
+      <a href="javascript:history.back()">Go Back</a>
       <p>
-	{% for tag in page.tags%}
-	<small>{{tag}}</small>
-	{% endfor %}
+	<strong>{{tag.name}}</strong>
       </p>
-    </div>
-    <hr/>
-    {% endfor %}
+
+      {% for page in tag.pages %}
+      <div>
+	<h1>{{page.title}}</h1>
+	{{ page.body | truncate(100, false, ' [...]') }}<br/>
+	<a href="{{page.url}}">Continue reading...</a>
+	<p>
+	  {% for tag in page.tags%}
+	  <small>{{tag}}</small>
+	  {% endfor %}
+	</p>
+      </div>
+      <hr/>
+      {% endfor %}
+    </main>
   </body>
 
   

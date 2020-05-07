@@ -82,6 +82,9 @@ if __name__ == "__main__":
 
     theme_path = os.path.join(path, 'themes', theme)
     dist_path = os.path.join(path, 'dist')
+
+    # wipe dist folder
+    shutil.rmtree(dist_path)
     create_directory(dist_path)
 
     jinja_env = Environment(
