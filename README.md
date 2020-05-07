@@ -10,3 +10,5 @@ python main.py ./example_site --theme example --collection posts
 ```
 
 Website will be rendered inside `dist` folder in `example_site`.
+
+Example theme design based on [web design in 4 minutes](https://jgthms.com/web-design-in-4-minutes/).
