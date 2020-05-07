@@ -2,6 +2,7 @@ import argparse
 import os
 import markdown
 import yaml
+import shutil
 
 from jinja2 import Environment, FileSystemLoader
 from slugify import slugify
@@ -12,6 +13,7 @@ PARSER = argparse.ArgumentParser()
 PARSER.add_argument('--path', type=str, required=True)
 PARSER.add_argument('--collection', action='append', required=True, type=str)
 PARSER.add_argument('--theme', type=str, required=True)
+PARSER.add_argument('--static', type=str, action='append', required=False)
 
 ARGS = PARSER.parse_args()
 
@@ -19,10 +21,11 @@ def create_directory(path: str):
     if not os.path.exists(path):
         os.makedirs(path)
 
-def get_all_md_files(path: str):
+def get_all_files(path: str, extension: str='', negative=False):
     for dirpath, _, filenames in os.walk(path):
         for filename in filenames:
-            if filename.endswith('.md'):
+            condition = filename.endswith("{}".format(extension))
+            if condition ^ negative:
                 yield os.path.join(dirpath, filename)
 
 def write_html_safe(path, html):
@@ -60,7 +63,7 @@ if __name__ == "__main__":
     collections = {}
 
     for collection in ARGS.collection:
-        collection_md_files = get_all_md_files(os.path.join(path, collection))
+        collection_md_files = get_all_files(os.path.join(path, collection), '.md')
         pages = [create_page(f, collection) for f in collection_md_files]
 
         tags = {}
@@ -108,3 +111,19 @@ if __name__ == "__main__":
             tag_path = os.path.join(tag_directory, '{}.html'.format(tag.name.lower()))
             write_html_safe(tag_path, output)
 
+    # add static files
+    if ARGS.static:
+        for static_dir in ARGS.static:
+            static_path = os.path.join(path, static_dir)
+            static_dist_path = os.path.join(dist_path, static_dir)
+        
+            for static_file in get_all_files(static_path):
+                dest_path = static_file.replace(static_path, static_dist_path) 
+                create_directory(os.path.dirname(dest_path))
+                shutil.copy2(static_file, dest_path)
+
+    # copy all non-html files from theme folder
+    for theme_file in get_all_files(theme_path, '.html', negative=True):
+        dest_path = theme_file.replace(theme_path, dist_path) 
+        create_directory(os.path.dirname(dest_path))
+        shutil.copy2(theme_file, dest_path)
