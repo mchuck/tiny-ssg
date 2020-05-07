@@ -9,12 +9,10 @@ To run example, type in terminal:
 python main.py ./example_site --theme example --collection posts
 ```
 
-You can now serve it by typing:
+Website will be rendered inside `dist` folder in `example_site`. You can now serve it by typing:
 
 ```
 cd ./example_site/dist && python -m http.server
 ```
-
-Website will be rendered inside `dist` folder in `example_site`.
 
 Example theme design based on [web design in 4 minutes](https://jgthms.com/web-design-in-4-minutes/).
