@@ -3,9 +3,7 @@ import os
 import markdown
 import yaml
 
-from dataclasses import dataclass
-from typing import List, Dict
-from jinja2 import Template
+from jinja2 import Environment, FileSystemLoader
 from slugify import slugify
 from models import Website, WebsiteCollection, WebsitePage, WebsiteTag
 
@@ -32,10 +30,6 @@ def write_html_safe(path, html):
     create_directory(directory)
     with open(path, 'w') as out_file:
         out_file.write(html)
-
-def get_template_from_file(path):
-    with open(path, 'r') as template_file:
-        return Template(template_file.read())
 
 # TODO: post -> page
 def create_page(post_file: str, collection:str) -> WebsitePage:
@@ -87,15 +81,19 @@ if __name__ == "__main__":
     dist_path = os.path.join(path, 'dist')
     create_directory(dist_path)
 
+    jinja_env = Environment(
+        loader=FileSystemLoader(theme_path)
+    )
+    
     # write index.html
-    template = get_template_from_file(os.path.join(theme_path, 'index.html'))
+    template = jinja_env.get_template('index.html')
     output = template.render(website=website)
     write_html_safe(os.path.join(dist_path, 'index.html'), output)
 
     for collection_name, collection in website.collections.items():
 
         # write collection_name/pages/...html
-        template = get_template_from_file(os.path.join(theme_path, 'page.html'))
+        template = jinja_env.get_template('page.html')
         for page in collection.pages: 
             output = template.render(page=page, website=website)
             page_directory = os.path.join(dist_path, collection_name, 'pages')
@@ -103,7 +101,7 @@ if __name__ == "__main__":
             write_html_safe(page_path, output)
 
         # write collection_name/tags/...html
-        template = get_template_from_file(os.path.join(theme_path, 'tag.html'))
+        template = jinja_env.get_template('tag.html')
         for tag in collection.tags: 
             output = template.render(tag=tag, website=website)
             tag_directory = os.path.join(dist_path, collection_name, 'tags')
