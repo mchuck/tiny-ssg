@@ -83,7 +83,8 @@ if __name__ == "__main__":
     dist_path = os.path.join(path, 'dist')
 
     # wipe dist folder
-    shutil.rmtree(dist_path)
+    if os.path.exists(dist_path):
+        shutil.rmtree(dist_path)
     create_directory(dist_path)
 
     jinja_env = Environment(
