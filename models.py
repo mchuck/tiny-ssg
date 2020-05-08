@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Dict
+from typing import List, Dict, Any
 
 
 @dataclass
@@ -15,6 +15,7 @@ class WebsitePage:
 @dataclass
 class WebsiteTag:
     name: str
+    slug: str
     pages: List[WebsitePage]
 
 @dataclass
@@ -27,3 +28,10 @@ class WebsiteCollection:
 class Website:
     collections: Dict[str, WebsiteCollection]
     meta: Dict
+
+@dataclass
+class Templates:
+    # TODO: Remove Any
+    index_template: Any
+    page_template: Any
+    tag_template: Any

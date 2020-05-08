@@ -8,6 +8,7 @@
       {% for page in website.collections['posts'].pages %}
       <div>
 	<h1>{{page.title}}</h1>
+	<small>{{page.created_at}}</small>
 	{{ page.body | truncate(100, false, ' [...]') }}<br/>
 	<a href="{{page.url}}">Continue reading...</a>
 	<p>
