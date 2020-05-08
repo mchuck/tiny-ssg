@@ -44,7 +44,7 @@ if __name__ == "__main__":
             static_dist_path = os.path.join(dist_path, static_dir)
         
             for static_file in get_all_files(static_path):
-                logging('\t\tAdding "%s"...', static_file)
+                log_default('\t\tAdding "%s"...', static_file)
                 dest_path = static_file.replace(static_path, static_dist_path) 
                 create_directory(os.path.dirname(dest_path))
                 shutil.copy2(static_file, dest_path)
