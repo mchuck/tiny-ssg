@@ -12,6 +12,6 @@ def __log_default(logger, text, *args, emojize=True):
 
 def setup_logging(logger):
     def inner(text, *args, emojize=True):
-        return __log_default(text, *args, emojize=emojize)
+        return __log_default(logger, text, *args, emojize=emojize)
     return inner
 
