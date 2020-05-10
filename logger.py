@@ -11,5 +11,7 @@ def __log_default(logger, text, *args, emojize=True):
         logger.ingo(text, *args)
 
 def setup_logging(logger):
-    return lambda text, *args, emojize=True: __log_default(logger, text, *args, emojize=emojize)
+    def inner(text, *args, emojize=True):
+        return __log_default(text, *args, emojize=emojize)
+    return inner
 
