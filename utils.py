@@ -10,6 +10,7 @@ def get_all_files(path: str, extension: str='', negative=False):
     for dirpath, _, filenames in os.walk(path):
         for filename in filenames:
             condition = filename.endswith("{}".format(extension))
+            condition = condition and not filename.startswith('.')
             if condition ^ negative:
                 yield os.path.join(dirpath, filename)
 

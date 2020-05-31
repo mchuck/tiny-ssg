@@ -3,10 +3,10 @@ import logging
 import shutil
 
 from utils import write_file_safe
-from logger import setup_logging
+from logger import get_logger
 
 
-log_default = setup_logging(logging.getLogger(__name__))
+log_default = get_logger(__name__)
 
 
 def __render_collection_item(template, path, slug, render_kwargs):

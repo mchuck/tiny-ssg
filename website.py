@@ -7,11 +7,11 @@ from typing import List
 from datetime import datetime
 from slugify import slugify
 
-from logger import setup_logging
+from logger import get_logger
 from models import WebsitePage, WebsiteTag, Website, WebsiteCollection
 from utils import get_all_files
 
-log_default = setup_logging(logging.getLogger(__name__))
+log_default = get_logger(__name__)
 
 def __create_page(page_file: str, collection:str) -> WebsitePage:
     with open(page_file, 'r') as page_f:
