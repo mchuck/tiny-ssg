@@ -7,7 +7,7 @@ EXT_CONFIG = {
     }
 }
 
-MD = markdown.Markdown(extensions=['meta', 'codehilite','fenced_code'],
+MD = markdown.Markdown(extensions=['meta', 'codehilite','fenced_code', 'mdx_math'],
                        extension_configs=EXT_CONFIG,
                        output_format='html5'
 )
