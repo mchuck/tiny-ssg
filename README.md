@@ -16,3 +16,11 @@ cd ./example_site/dist && python -m http.server
 ```
 
 Example theme design based on [web design in 4 minutes](https://jgthms.com/web-design-in-4-minutes/).
+
+## TODO
+
+- [x] Auto reload
+- [ ] Code syntax highlighting 
+- [ ] Latex support
+- [ ] Zettelkaster support
+- [ ] Single file parsing
