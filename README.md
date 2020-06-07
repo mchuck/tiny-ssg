@@ -26,7 +26,7 @@ Example theme design based on [web design in 4 minutes](https://jgthms.com/web-d
 ## TODO
 
 - [x] auto-reload
-- [ ] code syntax highlighting 
+- [x] code syntax highlighting 
 - [ ] latex support
 - [ ] zettelkasten support
 - [ ] single file parsing

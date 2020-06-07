@@ -7,7 +7,7 @@ from website import create_website_model
 from logger import get_logger, configure_logging
 from utils import write_file_safe, get_all_files, create_directory
 from template import load_templates
-from render import render_templates
+from render_jinja import render_templates
 from server import run_server
 
 PARSER = argparse.ArgumentParser()

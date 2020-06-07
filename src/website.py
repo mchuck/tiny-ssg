@@ -1,7 +1,6 @@
 import os
 import logging
 import yaml
-import markdown
 
 from typing import List
 from datetime import datetime
@@ -10,15 +9,15 @@ from slugify import slugify
 from logger import get_logger
 from models import WebsitePage, WebsiteTag, Website, WebsiteCollection
 from utils import get_all_files
+from render_md import render_md
 
 log_default = get_logger(__name__)
+
 
 def __create_page(page_file: str, collection:str) -> WebsitePage:
     with open(page_file, 'r') as page_f:
         page_text = page_f.read()
-        md = markdown.Markdown(extensions = ['meta'], output_format='html5')
-        page_html = md.convert(page_text) 
-        page_meta = md.Meta
+        page_html, page_meta = render_md(page_text)
         page_title = page_meta['title'][0]
         return WebsitePage(page_title,
                            page_html,
