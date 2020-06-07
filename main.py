@@ -9,7 +9,6 @@ from utils import write_file_safe, get_all_files, create_directory
 from template import load_templates
 from render import render_templates
 from server import run_server
-from watch import run_watchdog
 
 PARSER = argparse.ArgumentParser()
 
@@ -19,7 +18,6 @@ PARSER.add_argument('--theme', type=str, required=True)
 PARSER.add_argument('--static', type=str, action='append', required=False)
 PARSER.add_argument('--serve', default=False, action='store_true')
 PARSER.add_argument('--port', type=int, default=8000)
-PARSER.add_argument('--watch', default=False, action='store_true')
 PARSER.add_argument('--verbose', default=False, action='store_true')
 
 ARGS = PARSER.parse_args()
@@ -76,14 +74,5 @@ if __name__ == "__main__":
     build_fn = init_build(path, dist_path, theme_path, theme, ARGS.collection, ARGS.static)
     build_fn()
 
-    th = None
     if ARGS.serve:
-        from threading import Thread
-        th = Thread(target=run_server, args=(ARGS.port, dist_path), daemon=True)
-        th.start()
-        
-    if ARGS.watch:
-        run_watchdog(path, dist_path, build_fn)
-
-    if th:
-        th.join()
+        run_server(ARGS.port, dist_path, path, build_fn)

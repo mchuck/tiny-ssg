@@ -1,21 +1,23 @@
 import logging
+import os
 
-from http.server import SimpleHTTPRequestHandler
-from socketserver import TCPServer
+from livereload import Server
 
 from logger import get_logger
 
 
 log_default = get_logger(__name__)
 
-def init_handler(handler, directory):
-    def inner(*args, **kwargs):
-        return handler(directory=directory, *args, **kwargs)
-    return inner
+def run_server(port, serve_path, watch_path, change_callback):
 
-def run_server(port, path):
-    handler = init_handler(SimpleHTTPRequestHandler, path)
+    log_default('Running server at: %d', port, not_verbose=True)
     
-    with TCPServer(("", port), handler) as httpd:
-        log_default("Running server at localhost:%d", port, not_verbose=True)
-        httpd.serve_forever()
+    server = Server()
+
+    def ignore_fn(path):
+        basename = os.path.basename(path)
+        return serve_path in path or basename.startswith('.')
+
+    server.watch(watch_path, change_callback, ignore=ignore_fn)
+    
+    server.serve(root=serve_path, port=port)
