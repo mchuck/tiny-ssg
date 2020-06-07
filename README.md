@@ -15,6 +15,12 @@ Website will be rendered inside `dist` folder in `example_site`. You can now ser
 cd ./example_site/dist && python -m http.server
 ```
 
+Or you can rely on included server with livereload:
+
+```
+python main.py --path ./example_site --theme example --collection posts --serve --port 8000
+```
+
 Example theme design based on [web design in 4 minutes](https://jgthms.com/web-design-in-4-minutes/).
 
 ## TODO
